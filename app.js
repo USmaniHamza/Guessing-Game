@@ -8,20 +8,29 @@
 //Game values
 let min = 1,
   max = 10,
-  winningNum = 2,
+  winningNum = getRandomNum(min, max),
   guessesLeft = 3;
 
 //UT elements
 const game = document.querySelector("#game"),
   minNum = document.querySelector(".min-num"),
   maxNum = document.querySelector(".max-num"),
-  guessBtn = document.querySelector("#guess-btn"),
+  guessBtn = document.querySelector("#guess-btn"), //as a string i guess
   guessInput = document.querySelector("#guess-input"),
   message = document.querySelector(".message");
 
 //Assign UI min and max
 minNum.textContent = min;
 maxNum.textContent = max;
+//Play Again Event Listener
+game.addEventListener("mousedown", function (e) {
+  //CLICK DEYA JACCHILO NA BECAUSE OF EVENT DELEGATION CLICK EVENT VERY IMPORTANT
+  //A BIT CONFUSED
+  //EVENT DELEGATION
+  if (e.target.className === "play-again") {
+    window.location.reload(); //that play-again goes away
+  }
+});
 
 //Listen for guess
 guessBtn.addEventListener("click", function (e) {
@@ -70,6 +79,16 @@ function gameOver(won, msg) {
   message.style.color = color;
   // Set message
   setMessage(msg);
+
+  //Play Again?
+  guessBtn.value = "Play Again"; //pretty neat
+  guessBtn.className = "play-again"; //but why +- why not just equals
+  //className string i guess
+}
+//Get Winning Number
+//CONCEPT OF METHOD HOISTING
+function getRandomNum(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min); //PRETTY CRAZY CALCULATION
 }
 //Set Message
 function setMessage(msg, color) {
